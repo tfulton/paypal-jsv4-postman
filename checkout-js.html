@@ -1,0 +1,104 @@
+<html>
+<head>
+    <title>Checkout.js Test</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+</head>
+
+<body>
+<div class="ui attached stackable menu">
+    <div class="ui container">
+        <a class="item" id="home">
+            <i class="home icon"></i> Home
+        </a>
+    </div>
+</div>
+<div class="ui raised container segment visible content" id="cart">
+    <h2 class="ui header">Checkout.js Test</h2>
+    <div class="ui form">
+        <div class="field">
+            <label>Payment Data</label>
+            <pre>
+            <textarea id="paymentJson" rows="30" cols="10">
+{
+  "payment": {
+    "intent": "order",
+    "payer": {
+      "payment_method": "paypal"
+    },
+    "transactions": [
+      {"amount": { "total": 10.03, "currency": "USD" }}
+    ],
+    "note_to_payer": "Contact us for any questions on your order.",
+    "redirect_urls": {
+      "return_url": "http://www.paypal.com/return",
+      "cancel_url": "http://www.paypal.com/cancel"
+    }
+  },
+  "experience": {
+    "input_fields": {
+      "no_shipping": 0,
+      "address_override": 0
+
+    }
+  }
+}
+            </textarea>
+                </pre>
+        </div>
+    </div>
+    <p/>
+    <div id="paypal-button-container"></div>
+</div>
+<script>
+    $("#home").click(function(){
+        /* function goes in here */
+        location.reload()
+    });
+</script>
+<script>
+
+    // Render the PayPal button
+    paypal.Button.render({
+
+        // Set your environment
+
+        env: 'sandbox', // sandbox | production
+        client: {
+            sandbox: 'AYidKuTmO-c-5kUElRNtNin579BxO3G6dzYK9rLuY0AUp01QY67KZTRXWedVDAHYdhE7IvgPuWDtBqfq',
+            production: '<insert production client id>'
+        },
+
+        locale: 'en_US',
+
+        style: {
+            label: 'pay', // checkout | credit | pay
+            size: 'medium',    // small | medium | responsive
+            shape: 'pill',     // pill | rect
+            color: 'silver'      // gold | blue | silver
+        },
+
+        payment: function (data, actions) {
+            var jsonStr = document.getElementById("paymentJson").value;
+            console.log("json: ", jsonStr)
+            return actions.payment.create(JSON.parse(jsonStr));
+        },
+
+        onAuthorize: function (data, actions) {
+            return actions.payment.get().then(function(payment) {
+                console.log("onAuthorize data:", data);
+                console.log("onAuthorize actions:", actions);
+                console.log("onAuthorize payment:", payment);
+                document.getElementById("cart").innerHTML = "<div><pre>" + JSON.stringify(payment, null, 4) + "</pre></div>"
+            });
+        }
+
+    }, '#paypal-button-container');
+
+</script>
+</body>
+</html>
