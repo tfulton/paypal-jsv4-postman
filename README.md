@@ -8,13 +8,8 @@ JSV4 Postman
 - [Requirements](#requirements)
 - [Installation and Configuration](#installation-and-configuration)
   - [Download or clone this repository to your local machine](#download-or-clone-this-repository-to-your-local-machine)
-    - [Download as Zip](#download-as-zip)
-    - [Clone the Project](#clone-the-project)
-  - [Add Your Client ID to your HTML/Javascript Client Page](#add-your-client-id-to-your-htmljavascript-client-page)
+  - [Add Your Client ID to the HTML/Javascript Client Page](#add-your-client-id-to-the-htmljavascript-client-page)
   - [Setup and Configure Postman Collection](#setup-and-configure-postman-collection)
-    - [Import the Postman Collection](#import-the-postman-collection)
-    - [Create an Environment](#create-an-environment)
-    - [Add Client ID and Secret](#add-client-id-and-secret)
 - [Perform the Checkout Flow as a Customer](#perform-the-checkout-flow-as-a-customer)
 - [Operate the REST Calls Using Postman](#operate-the-rest-calls-using-postman)
   - [Execute the Payment](#execute-the-payment)
@@ -52,7 +47,7 @@ Once downloaded, unzip the contents into the directory of your choice.
 ### Clone the Project ###
 Using GIT to access and copy the project is the preferred method of downloading files to your local machine.  [MORE ON THIS TODO]
 
-## Add Your Client ID to your HTML/Javascript Client Page
+## Add Your Client ID to the HTML/Javascript Client Page
 
 The PayPal Sandbox "Client ID" is used to identify the merchant and perform key security operations required to operate the JSv4 .html client.  Edit the file [chekout-js.html line 72](checkout-js.html#L72) and add your Client ID into the appropriate attribute of the code.  Specifically, put your Client ID into to single quotes in place of ```<insert sandbox client id>``` :
 
@@ -103,7 +98,7 @@ NOW, you should be ready to run the demo!!!
 
 # Perform the Checkout Flow as a Customer
 
-Open the checkout-js.html file in a supported broswer.  This page has been configured to complete the REST equivalent of SetExpressCheckout" in classic nomenclature.  The page should appear with some JSON and the PayPal Checkout button appearing at the bottom:
+Open the checkout-js.html file in a supported broswer.  This page has been configured to complete the REST equivalent of SetExpressCheckout" in classic nomenclature.  The page should appear with some JSON and the PayPal Checkout button appearing at the bottom.  Note the **ID** and **payer_id** fields in particular in the results:
 
 ![Checkout](images/checkout-js.png?raw=true "Checkout")
 
@@ -111,7 +106,7 @@ Complete the checkout flow (assuring our Client ID has been inserted into the ap
 
 ![Checkout Complete](images/checkout-completed.png?raw=true "Checkout Complete")
 
-Note the **ID** and **payer_id** fields in particular.
+
 
 # Operate the REST Calls Using Postman
 
