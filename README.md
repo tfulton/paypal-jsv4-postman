@@ -14,7 +14,7 @@ JSV4 Postman
   - [Setup and Configure Postman Collection](#setup-and-configure-postman-collection)
     - [Import the Postman Collection](#import-the-postman-collection)
     - [Create an Environment](#create-an-environment)
-    - [Add Client ID and Secrent](#add-client-id-and-secrent)
+    - [Add Client ID and Secret](#add-client-id-and-secret)
 - [Perform the Checkout Flow as a Customer](#perform-the-checkout-flow-as-a-customer)
 - [Opereate the REST Calls Using Postman](#opereate-the-rest-calls-using-postman)
 
@@ -47,13 +47,13 @@ On the main project page of this github repository, you can use the "Download Zi
 Once downloaded, unzip the contents into the directory of your choice.
 
 ### Clone the Project ###
-Using GIT to access and copy the project is the preferred method of downloading files to your local machine.  [MORE ON THIS TO COMNE]
+Using GIT to access and copy the project is the preferred method of downloading files to your local machine.  [MORE ON THIS TODO]
 
 ## Add Your Client ID to your HTML/Javascript Client Page
 
 The PayPal Sandbox "Client ID" is used to identify the merchant and perform key security operations required to operate the JSv4 .html client.  Edit the file [chekout-js.html line 72](checkout-js.html#L72) and add your Client ID into the appropriate attribute of the code.  Specifically, put your Client ID into to single quotes in place of ```<insert sandbox client id>``` :
 
- ```javascript
+ ```js
         env: 'sandbox', // sandbox | production
         client: {
             sandbox: '<insert sandbox client id>',
@@ -85,14 +85,14 @@ You will need to create an "environment" within Postman to hold oAuth tokens and
 ![Postman Environment](images/postman-environment.png?raw=true "Postman Environment")
 
 
-### Add Client ID and Secrent ###
-We need to add our credentials to the imported Postman collection above in order to authenticate against the PayPal oAuth system.  Within the new Postman collection, double-click/open the item "OAuth Token Request - Sandbox".  Here, select the "Authorization" subtab where you will be presented with a screen to enter auth credentials.  In our case (these should already be selected) we will be using:
+### Add Client ID and Secret ###
+We need to add our credentials to the imported Postman collection above in order to authenticate against the PayPal oAuth system.  Within the new Postman collection, double-click (i.e. open) the item "OAuth Token Request - Sandbox".  Select the "Authorization" tab where you will be presented with a screen to enter credentials.  In our case (these should already be selected) we will be using:
 
 * Type: 'Basic Auth'
-* User:  [Your REST API App 'Client ID']
-* Password:  [Your REST API App 'Secret']
+* User:  [REST API App 'Client ID']
+* Password:  [REST API App 'Secret']
 
-Enter the the selections accordingly, and click "Send".  You should see a response as in the following:
+Enter the the selections accordingly, and click "Send".  You should see a response similar to the following:
 
 ![Postman Auth Setup](images/postman-authentication.png?raw=true "Postman Auth Setup")
 
