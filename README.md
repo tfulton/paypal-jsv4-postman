@@ -16,7 +16,10 @@ JSV4 Postman
     - [Create an Environment](#create-an-environment)
     - [Add Client ID and Secret](#add-client-id-and-secret)
 - [Perform the Checkout Flow as a Customer](#perform-the-checkout-flow-as-a-customer)
-- [Opereate the REST Calls Using Postman](#opereate-the-rest-calls-using-postman)
+- [Operate the REST Calls Using Postman](#operate-the-rest-calls-using-postman)
+  - [Execute the Payment](#execute-the-payment)
+  - [Authorize the Order](#authorize-the-order)
+  - [Capture the Authorization](#capture-the-authorization)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 # Overview #
@@ -110,9 +113,15 @@ Complete the checkout flow (assuring our Client ID has been inserted into the ap
 
 Note the **ID** and **payer_id** fields in particular.
 
-# Opereate the REST Calls Using Postman
+# Operate the REST Calls Using Postman
 
 Now, we are ready to complete the "execute" and "capture" calls of the flow.
+
+## Execute the Payment
+
+## Authorize the Order
+
+## Capture the Authorization
 
 
 
