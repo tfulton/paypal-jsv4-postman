@@ -61,7 +61,7 @@ The PayPal Sandbox "Client ID" is used to identify the merchant and perform key 
         locale: 'en_US',
  ```
 
-This page provides more details regarding the Client ID location in the [developer.paypal.com](https://developer.paypal.com) console.
+More details on REST API Apps and the Client ID location in the [developer.paypal.com](https://developer.paypal.com) console can be found [here](README-RestApp.md).
 
 ## Setup and Configure Postman Collection ##
 
