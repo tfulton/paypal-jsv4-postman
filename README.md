@@ -16,6 +16,7 @@ JSV4 Postman
   - [Execute the Payment](#execute-the-payment)
   - [Authorize the Order](#authorize-the-order)
   - [Capture the Authorization](#capture-the-authorization)
+- [Summary](#summary)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 # Overview #
@@ -30,14 +31,12 @@ This project provides an example checkout.js implementation (JSv4) for an 'AS2' 
 
 # Installation and Configuration #
 
-We will need to get a copy of this code to your local machine in order to make some small changes, and run the Postman REST calls.  Once we have the files local, we will add our credentials to both the .html file and Postman in order to authenticate with the PayPal Sandbox environment.
-
 ## Download or clone this repository to your local machine ##
-You can either download the entire contents of this project to your local machine or clone the repository using Git.  More detailed instructions can be found [here](./GitSetup.md#clone-or-download-project).
+We will need to get a local copy of this code in order to make some small changes.  We will add our credentials to both the .html file **and** Postman in order to authenticate with the PayPal Sandbox environment.  You can either download a .zip or clone the repository using Git.  More detailed instructions can be found [here](./GitSetup.md#clone-or-download-project).
 
 ## Add Your Client ID to the HTML/Javascript Client Page
 
-The PayPal Sandbox "Client ID" is used to identify the merchant and perform key security operations required to operate the JSv4 .html client.  Edit the file [chekout-js.html line 72](checkout-js.html#L72) and add your Client ID into the appropriate attribute of the code.  Specifically, put your Client ID into to single quotes in place of ```<insert sandbox client id>``` :
+The PayPal Sandbox "Client ID" is used to identify the merchant and perform key security operations required by the JSv4 client.  Edit the file [chekout-js.html line 72](checkout-js.html#L72) and add your Client ID into the 'client.sandbox' attribute of the code.  Specifically, put your Client ID in place of ```<insert sandbox client id>``` :
 
  ```js
         env: 'sandbox', // sandbox | production
@@ -49,12 +48,12 @@ The PayPal Sandbox "Client ID" is used to identify the merchant and perform key 
         locale: 'en_US',
  ```
 
-More details on REST API Apps and the Client ID location in the [developer.paypal.com](https://developer.paypal.com) console can be found [here](README-RestApp.md).
+More details on REST API Apps and the Client ID location in the [developer.paypal.com](https://developer.paypal.com) console can be found [here](./PPRestApp.md).
 
 ## Setup and Configure Postman Collection ##
 
 ### Import the Postman Collection ###
-Launch Postman.  Once in the application, you can "import" a new collection of API calls to use for the purposes of our example.  Specifically:
+Launch Postman.  Once in the application, you can "import" a new collection of API calls for our example.  Specifically:
 
 1. Click the import button in the upper left of the Postman application.
 1. Once the import modal comes up, select the "Import File >> Choose Files" option and select the file in this project [postman-paypal-rest-basic-collection.json](postman-paypal-rest-basic-collection.json)
@@ -66,13 +65,13 @@ You should have an imported collection that looks like the following:
 ![Imported Collection](images/postman-imported.png?raw=true "Imported Collection")
 
 ### Create an Environment ###
-You will need to create an "environment" within Postman to hold oAuth tokens and other items behind the scenes.  Select the 'gear' looking icon in the upper right and choose the option "Manage Environments".  A modal appears where you can "Add" a new environment.  Enter an appropriate name, and close the modal:
+Next, create an 'environment' within Postman to hold oAuth tokens and other items behind the scenes.  Select the 'gear' icon in the upper right and choose the option "Manage Environments".  A modal appears where you can "Add" a new environment.  Enter an appropriate name, and close the modal:
 
 ![Postman Environment](images/postman-environment.png?raw=true "Postman Environment")
 
 
 ### Add Client ID and Secret ###
-We need to add our credentials to the imported Postman collection above in order to authenticate against the PayPal oAuth system.  Within the new Postman collection, double-click (i.e. open) the item "OAuth Token Request - Sandbox".  Select the "Authorization" tab where you will be presented with a screen to enter credentials.  In our case (these should already be selected) we will be using:
+Add our credentials to the imported Postman collection above in order to authenticate against the PayPal oAuth system.  Within the new Postman collection, open the "OAuth Token Request - Sandbox" operation.  Select the 'Authorization' tab where you will be presented with a screen to enter credentials.  These should already be selected, and we will be using:
 
 * Type: 'Basic Auth'
 * User:  [REST API App 'Client ID']
@@ -82,29 +81,28 @@ Enter the the selections accordingly, and click "Send".  You should see a respon
 
 ![Postman Auth Setup](images/postman-authentication.png?raw=true "Postman Auth Setup")
 
-NOW, you should be ready to run the demo!!!
+Next, let's run the demo!!!
 
 # Checkout Using JSv4 Enabled Web Page
 
-Open the checkout-js.html file in a supported broswer.  This page has been configured to complete the REST equivalent of SetExpressCheckout" in classic nomenclature.  The page should appear with some JSON and the PayPal Checkout button appearing at the bottom.  Note the **ID** (PAY-ID) and **payer_id** (PAYER-ID) fields in particular in the results:
+Open the checkout-js.html file in a supported browser (assuring our Client ID has been inserted into the appropriate attribute in [checkout-js.html](checkout-js.html)).  This page has been configured to complete the REST equivalent of SetExpressCheckout" in classic nomenclature.  We should see some JSON and the PayPal Checkout button:
 
 ![Checkout](images/checkout-js.png?raw=true "Checkout")
 
-Complete the checkout flow (assuring our Client ID has been inserted into the appropriate spot in [checkout-js.html](checkout-js.html)) resulting in a page similar to the following:
+Complete the checkout flow resulting in a page similar to the following.  Note the **ID** (PAY-ID) and **payer_id** (PAYER-ID) fields in particular in the response:
 
 ![Checkout Complete](images/checkout-completed.png?raw=true "Checkout Complete")
 
 
-
 # Using Postman for Execute, Auth, Capture and other REST Calls
-Now, we are ready to complete the "execute" and "capture" calls of the flow.  The API calls we make use URI and JSON per the [Payments API reference documentation](https://developer.paypal.com/docs/api/payments/).  Use these documents as your base reference for URI and JSON specifications in all the instructions that follow.
+Now, we are ready to complete the "execute" and "capture" calls of the flow.  The API calls we make use REST URI and request body JSON as per the docs: [Payments API reference documentation](https://developer.paypal.com/docs/api/payments/).  Use these documents as your base reference moving forward.
 
-NEXT:  open up postman and navigate to the imported collection.
+NEXT:  open up Postman and navigate to the imported collection.
 
 ## Authenticate via oAuth
-Authentication for PayPal REST uses the oAuth authtication protocol.  Post (or "Send") the "OAuth Token Request - Sandbox" operation as described in [Setup and Configure Postman Collection](setup-and-configure-postman-collection).
+Authentication for PayPal REST uses the oAuth authentication protocol.  "Send" the "OAuth Token Request - Sandbox" operation as described in [Setup and Configure Postman Collection](setup-and-configure-postman-collection).
 
-If you authenticated correctly, you should see the access token in the response body as shown below.  The 'access_token' is saved automatically to your environment as indicated in the documentation [Setup and Configure Postman Collection](setup-and-configure-postman-collection):
+You should see the access token in the response body as shown below.  The 'access_token' is saved automatically to your environment as indicated in the documentation [Setup and Configure Postman Collection](setup-and-configure-postman-collection):
 
 ```json
 {
@@ -118,7 +116,7 @@ If you authenticated correctly, you should see the access token in the response 
 ```
 
 ## Execute the Payment
-Using the 'Execute Payment' operation to complete the customer approval of the order.  The PAY-ID and 'payer_id' from the checkout flow are used to execute the payment:  See the corresponding highlighted areas in the image to follow:
+Use the 'Execute Payment' operation to complete the customer approval of the order.  The PAY-ID and 'payer_id' from the checkout flow are used to execute the payment:  See the corresponding highlighted areas in the image following:
 
 1. Open the 'Execute Payment' operation in the left hand navigation pane.
 1. Build the [execute URI](https://developer.paypal.com/docs/api/payments/#payment_execute).  Replace the {payment_id} URI parameter with your PAY-ID. (See depiction below)
@@ -127,7 +125,7 @@ Using the 'Execute Payment' operation to complete the customer approval of the o
 ![Execute](images/postman-execute.png?raw=true "Execute")
 
 ** Response **
-If successful, your response will contain a JSON payload similar to below.  Use 'transactions.related_resources.order.id' to authorize your order in the next section.  Additionally, you can use the HATEOS links provided in the response payload in 'transactions.related_resources.order.links' section to help build your authorization URI later:
+If successful, your response will contain a JSON payload similar to below.  Use 'transactions.related_resources.order.id' to authorize your order in the next section.  Additionally, you can use the HATEOS links provided in the response payload ('transactions.related_resources.order.links') to help build your authorization URI later:
 
 ```json
 {
@@ -228,14 +226,14 @@ If successful, your response will contain a JSON payload similar to below.  Use 
 
 
 ## Authorize the Order
-Using the order.id or HATEOS authorization link from the 'execute' call above, we next build our order-authorization call.  Specifically:
+We next build our 'authorize order' call.  Specifically:
 
 1. Use 'Auth Order' operation in the left hand navigation pane.
 1. Build the [authorize order URI](https://developer.paypal.com/docs/api/payments/#order_authorize).  Replace the {order_id} URI parameter with your order.id from the 'execute' call above. You can also use the HATEOS 'authorization' link provided in the execute response body above.
 1. Build the JSON request body.  In the Postman collection example, you can use the existing JSON and replace the 'amount' related values as appropriate.
 
 ** Response **
-If successful, your authorization response will contain a JSON payload similar to below.  Use 'id' to capture the authorization later in the next section.  Additionally, you can use the HATEOS links provided in the response payload 'links' section to help build your capture URI later:
+If successful, your authorization response will contain a JSON payload similar to below:
 
 ```json
 {
@@ -285,14 +283,14 @@ If successful, your authorization response will contain a JSON payload similar t
 ```
 
 ## Capture the Authorization
-We are now ready to capture the authorized order.  Using the authorization id or HATEOS capture link from the 'authorize order' call above, we next build our capture call.  Specifically:
+We are now ready to capture the authorized order.  Using the authorization id or HATEOS capture link from the authorization call above, build our capture call.  Specifically:
 
 1. Use the 'Capture Auth' operation in the left hand navigation pane.
 1. Build the [capture URI](https://developer.paypal.com/docs/api/payments/#authorization_capture).  Replace {authorization_id} from the authorize order call above.  You can also use the HATEOS 'capture' link provided in the 'authorization' response body above.
-1. Build the JSON request body.  In the Postman collection example, you can use the existing JSON and replace the 'amount' and other related values as appropriate.
+1. Build the JSON request body.  In the Postman collection example, you can use the existing JSON and replace the 'amount' and other values as appropriate.
 
 ** Response **
-If successful, your capture response will contain a JSON payload similar to below.  Use capture id and other previous auth, order and payment id's to retrieve and modify actions as appropriate.  Of course, you can use the HATEOS links provided to help build your URI as needed later:
+If successful, your capture response will contain a JSON payload similar to below:
 
 ```json
 {
@@ -337,7 +335,7 @@ If successful, your capture response will contain a JSON payload similar to belo
 ```
 
 
-
-
+# Summary #
+In this project, we should have gone through a simple JSv4 client checkout flow.  Using Postman also operated a number of REST API calls to execute, authorize and capture the original order.  The operations give us an insight into how a (straightforward) AS2 transaction flow moves data from the client and server side components.
 
 
