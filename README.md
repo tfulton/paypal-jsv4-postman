@@ -124,7 +124,7 @@ Use the 'Execute Payment' operation to complete the customer approval of the ord
 
 ![Execute](images/postman-execute.png?raw=true "Execute")
 
-** Response **
+**Response**
 If successful, your response will contain a JSON payload similar to below.  Use 'transactions.related_resources.order.id' to authorize your order in the next section.  Additionally, you can use the HATEOS links provided in the response payload ('transactions.related_resources.order.links') to help build your authorization URI later:
 
 ```json
@@ -232,7 +232,7 @@ We next build our 'authorize order' call.  Specifically:
 1. Build the [authorize order URI](https://developer.paypal.com/docs/api/payments/#order_authorize).  Replace the {order_id} URI parameter with your order.id from the 'execute' call above. You can also use the HATEOS 'authorization' link provided in the execute response body above.
 1. Build the JSON request body.  In the Postman collection example, you can use the existing JSON and replace the 'amount' related values as appropriate.
 
-** Response **
+**Response**
 If successful, your authorization response will contain a JSON payload similar to below:
 
 ```json
@@ -289,7 +289,7 @@ We are now ready to capture the authorized order.  Using the authorization id or
 1. Build the [capture URI](https://developer.paypal.com/docs/api/payments/#authorization_capture).  Replace {authorization_id} from the authorize order call above.  You can also use the HATEOS 'capture' link provided in the 'authorization' response body above.
 1. Build the JSON request body.  In the Postman collection example, you can use the existing JSON and replace the 'amount' and other values as appropriate.
 
-** Response **
+**Response**
 If successful, your capture response will contain a JSON payload similar to below:
 
 ```json
