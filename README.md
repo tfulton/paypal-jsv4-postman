@@ -18,10 +18,7 @@ JSV4 Postman
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 # Overview #
-This project provides an example checkout.js implementation (JSv4) for authorization with a postman collection used as execution and capture.
-
-* An .html file provides the client web page for customer authorization and presentation of the incontext checkout flow.
-* A Postman collection provides the structure for using Postman as a REST client for performing the remaining operations of execute, authorization, capture, etc.
+This project provides an example checkout.js implementation (JSv4) for an 'AS2' transaction flow.  A JSv4 enabled web page provides the customer checkout experience; Postman is used for execution, auth and capture.
 
 # Requirements #
 
@@ -96,9 +93,9 @@ Enter the the selections accordingly, and click "Send".  You should see a respon
 
 NOW, you should be ready to run the demo!!!
 
-# Perform the Checkout Flow as a Customer
+# Checkout Using JSv4 Enabled Web Page
 
-Open the checkout-js.html file in a supported broswer.  This page has been configured to complete the REST equivalent of SetExpressCheckout" in classic nomenclature.  The page should appear with some JSON and the PayPal Checkout button appearing at the bottom.  Note the **ID** and **payer_id** fields in particular in the results:
+Open the checkout-js.html file in a supported broswer.  This page has been configured to complete the REST equivalent of SetExpressCheckout" in classic nomenclature.  The page should appear with some JSON and the PayPal Checkout button appearing at the bottom.  Note the **ID** (PAY-ID) and **payer_id** (PAYER-ID) fields in particular in the results:
 
 ![Checkout](images/checkout-js.png?raw=true "Checkout")
 
@@ -108,15 +105,245 @@ Complete the checkout flow (assuring our Client ID has been inserted into the ap
 
 
 
-# Operate the REST Calls Using Postman
+# Using Postman for Execute, Auth, Capture and other REST Calls
+Now, we are ready to complete the "execute" and "capture" calls of the flow.  The API calls we make use URI and JSON per the [Payments API reference documentation](https://developer.paypal.com/docs/api/payments/).  Use these documents as your base reference for URI and JSON specifications in all the instructions that follow.
 
-Now, we are ready to complete the "execute" and "capture" calls of the flow.
+NEXT:  open up postman and navigate to the imported collection.
+
+## Authenticate via oAuth
+Authentication for PayPal REST uses the oAuth authtication protocol.  Post (or "Send") the "OAuth Token Request - Sandbox" operation as described in [Setup and Configure Postman Collection](setup-and-configure-postman-collection).
+
+If you authenticated correctly, you should see the access token in the response body as shown below.  The 'access_token' is saved automatically to your environment as indicated in the documentation [Setup and Configure Postman Collection](setup-and-configure-postman-collection):
+
+```json
+{
+    "scope": "https://uri.paypal.com/services/subscriptions https://api.paypal.com/v1/payments/.* https://api.paypal.com/v1/vault/credit-card https://uri.paypal.com/services/applications/webhooks openid https://uri.paypal.com/payments/payouts https://api.paypal.com/v1/vault/credit-card/.*",
+    "nonce": "2017-11-13T19:37:55Z2av4hmyP3dQSIrlNf1PrCgXZW15M3CXxJVGD4ys-_pU",
+    "access_token": "A21AAHWgqKNpKLYkiUxjEIOcvJ2CR7MBlfd7QBYyoaim7vKFLc_DgnLC7gqzM6w9IddEiDyysfPhuOP7LVRYwNs4LAAiBx8TQ",
+    "token_type": "Bearer",
+    "app_id": "APP-80W284485P519543T",
+    "expires_in": 32384
+}
+```
 
 ## Execute the Payment
+Using the 'Execute Payment' operation to complete the customer approval of the order.  The PAY-ID and 'payer_id' from the checkout flow are used to execute the payment:  See the corresponding highlighted areas in the image to follow:
+
+1. Open the 'Execute Payment' operation in the left hand navigation pane.
+1. Build the [execute URI](https://developer.paypal.com/docs/api/payments/#payment_execute).  Replace the {payment_id} URI parameter with your PAY-ID. (See depiction below)
+1. Build the JSON request body.  In the Postman collection example, you can use the existing JSON and replace the 'payer_id' attribute with your PAYER-ID.  (See depiction below)
+
+![Execute](images/postman-execute.png?raw=true "Execute")
+
+** Response **
+If successful, your response will contain a JSON payload similar to below.  Use 'transactions.related_resources.order.id' to authorize your order in the next section.  Additionally, you can use the HATEOS links provided in the response payload in 'transactions.related_resources.order.links' section to help build your authorization URI later:
+
+```json
+{
+    "id": "PAY-3W249660WW2717409LIFDEQA",
+    "intent": "order",
+    "state": "approved",
+    "cart": "9S281710AK5473645",
+    "payer": {
+        "payment_method": "paypal",
+        "status": "VERIFIED",
+        "payer_info": {
+            "email": "tofulton-buyer@paypal.com",
+            "first_name": "test",
+            "last_name": "buyer",
+            "payer_id": "VTW5PBHNTV24A",
+            "shipping_address": {
+                "recipient_name": "test buyer",
+                "line1": "400 Alabama Street",
+                "line2": "Suite 200",
+                "city": "San Francisco",
+                "state": "CA",
+                "postal_code": "94112",
+                "country_code": "US"
+            },
+            "country_code": "US"
+        }
+    },
+    "transactions": [
+        {
+            "amount": {
+                "total": "10.01",
+                "currency": "USD",
+                "details": {}
+            },
+            "payee": {
+                "merchant_id": "U3W86TPYJE8D6"
+            },
+            "item_list": {
+                "shipping_address": {
+                    "recipient_name": "test buyer",
+                    "line1": "400 Alabama Street",
+                    "line2": "Suite 200",
+                    "city": "San Francisco",
+                    "state": "CA",
+                    "postal_code": "94112",
+                    "country_code": "US"
+                }
+            },
+            "related_resources": [
+                {
+                    "order": {
+                        "id": "O-81T919910A434173N",
+                        "create_time": "2017-11-14T00:14:06Z",
+                        "update_time": "2017-11-14T00:14:06Z",
+                        "amount": {
+                            "total": "10.01",
+                            "currency": "USD",
+                            "details": {}
+                        },
+                        "state": "PENDING",
+                        "reason_code": "ORDER",
+                        "links": [
+                            {
+                                "href": "https://api.sandbox.paypal.com/v1/payments/orders/O-81T919910A434173N",
+                                "rel": "self",
+                                "method": "GET"
+                            },
+                            {
+                                "href": "https://api.sandbox.paypal.com/v1/payments/payment/PAY-3W249660WW2717409LIFDEQA",
+                                "rel": "parent_payment",
+                                "method": "GET"
+                            },
+                            {
+                                "href": "https://api.sandbox.paypal.com/v1/payments/orders/O-81T919910A434173N/do-void",
+                                "rel": "void",
+                                "method": "POST"
+                            },
+                            {
+                                "href": "https://api.sandbox.paypal.com/v1/payments/orders/O-81T919910A434173N/authorize",
+                                "rel": "authorization",
+                                "method": "POST"
+                            },
+                            {
+                                "href": "https://api.sandbox.paypal.com/v1/payments/orders/O-81T919910A434173N/capture",
+                                "rel": "capture",
+                                "method": "POST"
+                            }
+                        ],
+                        "parent_payment": "PAY-3W249660WW2717409LIFDEQA"
+                    }
+                }
+            ]
+        }
+    ],
+...
+}
+```
+
 
 ## Authorize the Order
+Using the order.id or HATEOS authorization link from the 'execute' call above, we next build our order-authorization call.  Specifically:
+
+1. Use 'Auth Order' operation in the left hand navigation pane.
+1. Build the [authorize order URI](https://developer.paypal.com/docs/api/payments/#order_authorize).  Replace the {order_id} URI parameter with your order.id from the 'execute' call above. You can also use the HATEOS 'authorization' link provided in the execute response body above.
+1. Build the JSON request body.  In the Postman collection example, you can use the existing JSON and replace the 'amount' related values as appropriate.
+
+** Response **
+If successful, your authorization response will contain a JSON payload similar to below.  Use 'id' to capture the authorization later in the next section.  Additionally, you can use the HATEOS links provided in the response payload 'links' section to help build your capture URI later:
+
+```json
+{
+    "id": "2AU82319EU0433436",
+    "create_time": "2017-11-14T00:53:55Z",
+    "update_time": "2017-11-14T00:54:00Z",
+    "amount": {
+        "total": "3.00",
+        "currency": "USD"
+    },
+    "state": "authorized",
+    "protection_eligibility": "INELIGIBLE",
+    "parent_payment": "PAY-3W249660WW2717409LIFDEQA",
+    "links": [
+        {
+            "href": "https://api.sandbox.paypal.com/v1/payments/orders/O-81T919910A434173N",
+            "rel": "order",
+            "method": "GET"
+        },
+        {
+            "href": "https://api.sandbox.paypal.com/v1/payments/authorization/2AU82319EU0433436/reauthorize",
+            "rel": "reauthorize",
+            "method": "POST"
+        },
+        {
+            "href": "https://api.sandbox.paypal.com/v1/payments/authorization/2AU82319EU0433436",
+            "rel": "self",
+            "method": "GET"
+        },
+        {
+            "href": "https://api.sandbox.paypal.com/v1/payments/authorization/2AU82319EU0433436/capture",
+            "rel": "capture",
+            "method": "POST"
+        },
+        {
+            "href": "https://api.sandbox.paypal.com/v1/payments/authorization/2AU82319EU0433436/void",
+            "rel": "void",
+            "method": "POST"
+        },
+        {
+            "href": "https://api.sandbox.paypal.com/v1/payments/payment/PAY-3W249660WW2717409LIFDEQA",
+            "rel": "parent_payment",
+            "method": "GET"
+        }
+    ]
+}
+```
 
 ## Capture the Authorization
+We are now ready to capture the authorized order.  Using the authorization id or HATEOS capture link from the 'authorize order' call above, we next build our capture call.  Specifically:
+
+1. Use the 'Capture Auth' operation in the left hand navigation pane.
+1. Build the [capture URI](https://developer.paypal.com/docs/api/payments/#authorization_capture).  Replace {authorization_id} from the authorize order call above.  You can also use the HATEOS 'capture' link provided in the 'authorization' response body above.
+1. Build the JSON request body.  In the Postman collection example, you can use the existing JSON and replace the 'amount' and other related values as appropriate.
+
+** Response **
+If successful, your capture response will contain a JSON payload similar to below.  Use capture id and other previous auth, order and payment id's to retrieve and modify actions as appropriate.  Of course, you can use the HATEOS links provided to help build your URI as needed later:
+
+```json
+{
+    "id": "13U262351W371525Y",
+    "create_time": "2017-11-14T01:14:29Z",
+    "update_time": "2017-11-14T01:14:34Z",
+    "amount": {
+        "total": "3.00",
+        "currency": "USD"
+    },
+    "is_final_capture": false,
+    "state": "completed",
+    "reason_code": "None",
+    "parent_payment": "PAY-3W249660WW2717409LIFDEQA",
+    "transaction_fee": {
+        "value": "0.39",
+        "currency": "USD"
+    },
+    "links": [
+        {
+            "href": "https://api.sandbox.paypal.com/v1/payments/capture/13U262351W371525Y",
+            "rel": "self",
+            "method": "GET"
+        },
+        {
+            "href": "https://api.sandbox.paypal.com/v1/payments/capture/13U262351W371525Y/refund",
+            "rel": "refund",
+            "method": "POST"
+        },
+        {
+            "href": "https://api.sandbox.paypal.com/v1/payments/authorization/2AU82319EU0433436",
+            "rel": "authorization",
+            "method": "GET"
+        },
+        {
+            "href": "https://api.sandbox.paypal.com/v1/payments/payment/PAY-3W249660WW2717409LIFDEQA",
+            "rel": "parent_payment",
+            "method": "GET"
+        }
+    ]
+}
+```
 
 
 
