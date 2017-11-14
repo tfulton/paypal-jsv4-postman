@@ -124,7 +124,7 @@ Use the 'Execute Payment' operation to complete the customer approval of the ord
 
 ![Execute](images/postman-execute.png?raw=true "Execute")
 
-**Response**
+**Response**  
 If successful, your response will contain a JSON payload similar to below.  Use 'transactions.related_resources.order.id' to authorize your order in the next section.  Additionally, you can use the HATEOS links provided in the response payload ('transactions.related_resources.order.links') to help build your authorization URI later:
 
 ```json
