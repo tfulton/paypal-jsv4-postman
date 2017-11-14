@@ -23,27 +23,17 @@ This project provides an example checkout.js implementation (JSv4) for an 'AS2' 
 
 # Requirements #
 
-* A currently JSv4 supported browser  to view your JSv4 enabled webpage.
-* [Postman](https://www.getpostman.com) API client for making REST calls.
 * PayPal Sandbox "REST API App" setup and configured.
+* Any standard JSv4 supported browser to view your JSv4 enabled webpage.
+* [Postman](https://www.getpostman.com) API client for making REST calls.
 * A text editor such as a Notepad or [Notpad++](https://notepad-plus-plus.org) for windows, [SublimeText](https://www.sublimetext.com), [BBEdit](https://www.barebones.com/products/bbedit/) for Mac -- to make some minor edits to your JSv4 enabled webpage.
 
 # Installation and Configuration #
 
-We will need to get a copy of this code to your local machine in order to make some slight changes, and run the Postman REST calls.  Once we have the files local, we will add our credentials to both the .html file and Postman in order to authenticate with the PayPal Sandbox environment.
+We will need to get a copy of this code to your local machine in order to make some small changes, and run the Postman REST calls.  Once we have the files local, we will add our credentials to both the .html file and Postman in order to authenticate with the PayPal Sandbox environment.
 
 ## Download or clone this repository to your local machine ##
-You can either download the entire contents of this project to your local machine or clone the repository using Git.
-
-### Download as Zip ###
-On the main project page of this github repository, you can use the "Download Zip" feature provided by GitHub.  From the main page, you can see the download link by hovering over the "Clone or Download" button.  The following image is an example of the "Download ZIP" link for this project:
-
-![Download ZIP](images/git-download-zip.png?raw=true "Download ZIP")
-
-Once downloaded, unzip the contents into the directory of your choice.
-
-### Clone the Project ###
-Using GIT to access and copy the project is the preferred method of downloading files to your local machine.  [MORE ON THIS TODO]
+You can either download the entire contents of this project to your local machine or clone the repository using Git.  More detailed instructions can be found [here](./GitSetup.md#clone-or-download-project).
 
 ## Add Your Client ID to the HTML/Javascript Client Page
 
