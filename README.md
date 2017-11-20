@@ -32,8 +32,9 @@ This project provides an example checkout.js implementation (JSv4) for an 'AS2' 
 # Installation and Configuration #
 
 ## Download or clone this repository to your local machine ##
-We will need to get a local copy of this code in order to make some small changes.  We will add our credentials to both the .html file **and** Postman in order to authenticate with the PayPal Sandbox environment.  You can either download a .zip or clone the repository using Git.  More detailed instructions can be found [here](./GitSetup.md#clone-or-download-project).
+We will need to get a local copy of this code in order to make some small changes.  We will add our credentials to both the [checkout-js.html](checkout-js.html) file **and** Postman in order to authenticate with the PayPal Sandbox environment.  You can either download a .zip or clone the repository using Git.  More detailed instructions can be found [here](./GitSetup.md#clone-or-download-project).
 
+**NOTE:**  Windows users may need to 'extract' the downloaded .zip file in your local filesystem if that is your chosen download method.
 ## Add Your Client ID to the HTML/Javascript Client Page
 
 The PayPal Sandbox "Client ID" is used to identify the merchant and perform key security operations required by the JSv4 client.  Edit the file [chekout-js.html line 72](checkout-js.html#L72) and add your Client ID into the 'client.sandbox' attribute of the code.  Specifically, put your Client ID in place of ```<insert sandbox client id>``` :
@@ -85,7 +86,7 @@ Next, let's run the demo!!!
 
 # Checkout Using JSv4 Enabled Web Page
 
-Open the checkout-js.html file in a supported browser (assuring our Client ID has been inserted into the appropriate attribute in [checkout-js.html](checkout-js.html)).  This page has been configured to complete the REST equivalent of SetExpressCheckout" in classic nomenclature.  We should see some JSON and the PayPal Checkout button:
+Open the [checkout-js.html](checkout-js.html) file in a supported browser (assuring our Client ID has been inserted into the appropriate attribute in [checkout-js.html](checkout-js.html)).  This page has been configured to complete the REST equivalent of SetExpressCheckout" in classic nomenclature.  We should see some JSON and the PayPal Checkout button:
 
 ![Checkout](images/checkout-js.png?raw=true "Checkout")
 
