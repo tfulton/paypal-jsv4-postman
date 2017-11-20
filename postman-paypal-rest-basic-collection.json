@@ -1,8 +1,7 @@
 {
 	"info": {
 		"name": "PayPal REST - Basic",
-		"_postman_id": "6cc53698-bb26-bcc3-8fc8-931c9f2123c5",
-		"description": "",
+		"_postman_id": "0a569f40-646b-bded-a8cc-d01e419d027a",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -74,8 +73,7 @@
 						"oauth2",
 						"token"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -111,8 +109,7 @@
 						"payments",
 						"payment"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -149,8 +146,7 @@
 						"payment",
 						"PAY-39Y80953R9312442CLH6K2TI"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -188,8 +184,7 @@
 						"PAY-39Y80953R9312442CLH6K2TI",
 						"execute"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -207,7 +202,10 @@
 						"value": "application/json"
 					}
 				],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "https://api.sandbox.paypal.com/v1/payments/payment?count=10&start_index=0&sort_by=create_time&sort_order=desc",
 					"protocol": "https",
@@ -244,8 +242,7 @@
 							"equals": true
 						}
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -281,8 +278,7 @@
 						"checkout",
 						"orders"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -319,8 +315,7 @@
 						"orders",
 						"O-1W687847670179143"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -340,7 +335,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"amount\": {\n      \"currency\": \"USD\",\n      \"total\": \"3.00\"\n  },\n  \"referenceId\": \"123\"\n}"
+					"raw": "{\n  \"amount\": {\n      \"currency\": \"USD\",\n      \"total\": \"3.00\"\n  }\n}"
 				},
 				"url": {
 					"raw": "https://api.sandbox.paypal.com/v1/payments/orders/O-9DE299010P918163E/authorize",
@@ -358,8 +353,7 @@
 						"O-9DE299010P918163E",
 						"authorize"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -397,8 +391,7 @@
 						"1KS06621X5002543D",
 						"void"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -435,8 +428,7 @@
 						"authorization",
 						"2KS573714L1665831"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -474,8 +466,7 @@
 						"2KS573714L1665831",
 						"capture"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -513,8 +504,7 @@
 						"O-56478215FC749830H",
 						"capture"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -551,8 +541,7 @@
 						"capture",
 						"2KS573714L1665831"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -589,8 +578,7 @@
 						"capture",
 						"2KS573714L1665831"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -608,7 +596,10 @@
 						"value": "Bearer {{token}}"
 					}
 				],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "https://api.sandbox.paypal.com/v1/notifications/webhooks?anchor_id=APPLICATION",
 					"protocol": "https",
@@ -630,8 +621,7 @@
 							"equals": true
 						}
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		}
