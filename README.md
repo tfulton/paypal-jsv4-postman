@@ -32,7 +32,7 @@ This project provides an example checkout.js implementation (JSv4) for an 'AS2' 
 # Installation and Configuration #
 
 ## Download or clone this repository to your local machine ##
-We will need to get a local copy of this code in order to make some small changes.  We will add our credentials to both the [checkout-js.html](checkout-js.html) file **and** Postman in order to authenticate with the PayPal Sandbox environment.  You can either download a .zip or clone the repository using Git.  More detailed instructions can be found [here](./GitSetup.md#clone-or-download-project).
+We will need to get a local copy of this code in order to make some small changes.  We will add our credentials to both the [checkout-js.html](checkout-js.html) file **and** Postman in order to authenticate with the PayPal Sandbox environment.  You can either download a .zip and uncompress the files locally, or clone the repository using Git.  More detailed instructions can be found [here](./GitSetup.md#clone-or-download-project).
 
 **NOTE:**  Windows users may need to 'extract' the downloaded .zip file in your local filesystem if that is your chosen download method.
 ## Add Your Client ID to the HTML/Javascript Client Page
