@@ -27,7 +27,11 @@ This project provides an example checkout.js implementation (JSv4) for an 'AS2' 
 * PayPal Sandbox "REST API App" setup and configured.
 * Any standard JSv4 supported browser to view your JSv4 enabled webpage.
 * [Postman](https://www.getpostman.com) API client for making REST calls.
-* A text editor such as a Notepad or [Notpad++](https://notepad-plus-plus.org) for windows, [SublimeText](https://www.sublimetext.com), [BBEdit](https://www.barebones.com/products/bbedit/) for Mac -- to make some minor edits to your JSv4 enabled webpage.
+* Text editor or JavaScript tool.  Examples:
+  * [Webstorm](https://www.jetbrains.com/webstorm/) is approved for reimbursement for LE EL's -- **RECOMMENDED**
+  * Notepad or [Notpad++](https://notepad-plus-plus.org) for windows
+  * [SublimeText](https://www.sublimetext.com)
+  * [BBEdit](https://www.barebones.com/products/bbedit/) for Mac
 
 # Installation and Configuration #
 
